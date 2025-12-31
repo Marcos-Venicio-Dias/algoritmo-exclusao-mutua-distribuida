@@ -14,7 +14,7 @@ public class ProcessRequest {
     }
 
 
-    public void sendResourceRequest(String resourceName)
+    public void resourceRequest(String resourceName)
     {
         Date date = new Date();
         Payload payload = new Payload(this._idProcess,date,resourceName,_state);
