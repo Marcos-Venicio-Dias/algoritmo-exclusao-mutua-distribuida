@@ -8,6 +8,6 @@ public class main {
         int idProcess = random.nextInt(11);
         CriticalResource criticalResource = new CriticalResource();
         MulticastContext multicast = new MulticastContext(idProcess);
-
+        
     }
 }

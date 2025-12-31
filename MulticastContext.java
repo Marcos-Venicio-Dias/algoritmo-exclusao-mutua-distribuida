@@ -32,20 +32,32 @@ public class MulticastContext extends Thread{
         this._socket.joinGroup(this._groupAdress,this._netIf);
         
         System.out.println("The process ("+ idProcess + ")entered the room");
-            
+        
+        this.listenMessage(_socket);
+
         }catch(IOException error){
             System.out.println("Error to create a MulticastSocket instance");
         }
     }
 
 
-    public void listenMessage()
+    public void listenMessage(MulticastSocket multicastContext)
     {
         Thread listener = new Thread( () -> 
         {
           while(true)
-            {
+            {   
+                try{
                 
+                    byte[] bytes = new byte[1024];
+                    DatagramPacket packet = new DatagramPacket(bytes,bytes.length);
+                    this._socket.receive(packet);
+                    String message = new String(packet.getData(), 0, packet.getLength());
+
+                }catch(IOException error)
+                {
+                    System.out.println("The packet was lost");
+                }
             }  
         }
         );

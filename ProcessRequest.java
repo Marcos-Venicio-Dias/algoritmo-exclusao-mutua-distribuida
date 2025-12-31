@@ -1,15 +1,16 @@
 import java.util.Date;
 
-public class ProcessRequest{
+public class ProcessRequest {
 
     private int _idProcess;
     private String _state;
+    private MulticastContext _multicastContext;
 
-
-    public ProcessRequest(int idProcess)
+    public ProcessRequest(int idProcess, MulticastContext multicastContext)
     {
         this._idProcess = idProcess;
         _state = "RELEASED";
+        this._multicastContext = multicastContext;
     }
 
 
@@ -18,12 +19,10 @@ public class ProcessRequest{
         Date date = new Date();
         Payload payload = new Payload(this._idProcess,date,resourceName,_state);
         String message = payload._idProcess + ";" + payload._criticalResource + ";" + payload._timestamp;
-        MulticastContext multicast = new MulticastContext(this._idProcess);
-        multicast.sendMessage(message);
+        _multicastContext.sendMessage(message);
     }
 
-    
-    public void recieveResourceRequest()
+    public void onReceiveMessage(String message)
     {
         
     }
